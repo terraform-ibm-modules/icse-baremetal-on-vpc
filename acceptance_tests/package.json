@@ -4,7 +4,7 @@
   "description": "Acceptance tests for the baremetal module\"",
   "main": "baremetal.test.js",
   "scripts": {
-    "test": "tfx baremetal.test.js"
+    "test": "tfx ."
   },
   "author": "Jennifer Valle",
   "license": "ISC",

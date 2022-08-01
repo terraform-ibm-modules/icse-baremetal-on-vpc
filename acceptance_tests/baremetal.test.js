@@ -2,7 +2,8 @@
 const tfxjs = require("tfxjs");
 const tfx = new tfxjs(
   "module_test",
-  {}
+  {},
+  {quiet: true}
 );
 
 tfx.plan("tfx Generated Plan", () => {
@@ -40,9 +41,16 @@ tfx.plan("tfx Generated Plan", () => {
     ),
     tfx.resource(
       "Vsi Fip 0",
-      'ibm_is_floating_ip.vsi_fip[0]',
+      'ibm_is_floating_ip.baremetal_fip[0]',
       {
         "name": "at-icse-baremetal-fip"
+      }
+    ),
+    tfx.resource(
+      "Baremetal disk name",
+      "ibm_is_bare_metal_server_disk.disk",
+      {
+        "name" : "eth0"
       }
     ),
   );

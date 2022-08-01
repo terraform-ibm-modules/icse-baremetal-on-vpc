@@ -115,6 +115,12 @@ variable "ssh_key_ids" {
   }
 }
 
+variable "boot_volume_name" {
+  description = "Boot volume name"
+  type        = string
+  default     = "eth0"
+}
+
 ##############################################################################
 
 ##############################################################################
@@ -137,6 +143,46 @@ variable "add_floating_ip" {
   description = "Add a floating IP to the primary network interface."
   type        = bool
   default     = false
+}
+
+##############################################################################
+
+##############################################################################
+# Additional Network Interfaces
+##############################################################################
+
+variable "additional_network_interfaces" {
+  description = "List describing additional network interface for the baremetal"
+  type = list(
+    object({
+      name                      = string                 # interface name
+      subnet_id                 = string                 # id of the subnet where the interface is created
+      allowed_vlans             = optional(list(number)) # allowed vlans
+      allow_ip_spoofing         = optional(bool)         # allow ip spoofing
+      enable_infrastructure_nat = optional(bool)         # If true, the VPC infrastructure performs any needed NAT operations. If false, the packet is passed unmodified to/from the network interface, allowing the workload to perform any needed NAT operations.
+      hard_stop                 = optional(bool)         # Default is true. Applicable for pci type only, controls if the server should be hard stopped.
+      security_group_ids        = optional(list(string)) # security group ids for secondary interface
+      vlan                      = optional(number)       # Indicates the 802.1Q VLAN ID tag that must be used for all traffic on this interface
+      add_floating_ip           = optional(bool)         # create floating IP for the interface
+      primary_ip = object({
+        use_primary_ip = bool
+        address        = optional(string) # IP4 address
+        auto_delete    = optional(bool)   # force delete if the reserved ip is unbound
+        name           = optional(string) # IP name
+        reserved_ip    = optional(string) # existing reserved IP ID, use only with `use_primary_ip`
+      })
+    })
+  )
+  default = []
+
+  validation {
+    error_message = "Each network interface must have a unique name."
+    condition = (
+      length(var.additional_network_interfaces) == 0
+      ? true
+      : length(var.additional_network_interfaces.*.name) == length(distinct(var.additional_network_interfaces.*.name))
+    )
+  }
 }
 
 ##############################################################################

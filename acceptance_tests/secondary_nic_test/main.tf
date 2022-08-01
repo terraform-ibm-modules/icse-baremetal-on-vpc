@@ -32,6 +32,23 @@ module "baremetal" {
   user_data                  = "test-user-data"
   allow_ip_spoofing          = true
   add_floating_ip            = true
+  additional_network_interfaces = [
+    {
+      name      = "eth1"
+      subnet_id = "5678"
+      primary_ip = {
+        use_primary_ip = false
+      }
+    },
+    {
+      name      = "eth2"
+      subnet_id = "90AB"
+      primary_ip = {
+        use_primary_ip = true
+        reserved_ip    = "127.0.0.1"
+      }
+    }
+  ]
 }
 
 ##############################################################################
