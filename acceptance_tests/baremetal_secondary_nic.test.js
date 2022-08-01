@@ -50,6 +50,9 @@ tfx.plan("tfx Generated Plan", () => {
     ),
     tfx.resource("Baremetal Fip 0", "ibm_is_floating_ip.baremetal_fip[0]", {
       name: "at-icse-baremetal-fip",
+    }),
+    tfx.resource("Secondary NIC FIP", "ibm_is_floating_ip.secondary_nic_fip[\"eth2\"]", {
+      name: "at-icse-baremetal-eth2-fip",
     })
   );
 });

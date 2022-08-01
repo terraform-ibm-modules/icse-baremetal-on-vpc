@@ -47,6 +47,7 @@ module "baremetal" {
         use_primary_ip = true
         reserved_ip    = "127.0.0.1"
       }
+      add_floating_ip = true
     }
   ]
 }
