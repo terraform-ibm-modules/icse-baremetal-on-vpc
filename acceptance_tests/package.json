@@ -1,0 +1,14 @@
+{
+  "name": "icse-baremetal-module-acceptance-tests",
+  "version": "0.0.1",
+  "description": "Acceptance tests for the baremetal module\"",
+  "main": "baremetal.test.js",
+  "scripts": {
+    "test": "tfx baremetal.test.js"
+  },
+  "author": "Jennifer Valle",
+  "license": "ISC",
+  "dependencies": {
+    "tfxjs": "^0.6.2"
+  }
+}
