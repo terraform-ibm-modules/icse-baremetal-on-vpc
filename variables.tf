@@ -2,9 +2,6 @@
 # Module Variables
 ##############################################################################
 
-variable "ibmcloud_api_key" {}
-variable "region" {}
-
 variable "prefix" {
   description = "The prefix that you would like to prepend to your resources"
   type        = string
